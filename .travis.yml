@@ -1,0 +1,33 @@
+language: python
+
+matrix:
+    include:
+        - python: 2.7
+          env: TOXENV=py27
+        - python: 3.6
+          env: TOXENV=py36
+        - python: 3.7
+          env: TOXENV=py37
+          dist: xenial
+          sudo: true
+
+branches:
+    only:
+        - master
+        - /^\d\.\d+$/
+
+addons:
+    apt:
+        packages:
+            - libfreetype6-dev
+            - liblcms2-dev
+            - libffi-dev
+
+install:
+    - pip install -U pip wheel tox
+
+script: tox
+
+cache:
+    directories:
+        - $HOME/.cache/pip
